@@ -15,7 +15,7 @@ client.on("message", function(message) {
         try
         {
             const guild = message.channel.guild
-            const channel = guild.channels.cache.find(channel => channel.id === "880531406185455706")
+            const channel = guild.channels.cache.find(channel => channel.id === "880593285473792031")
             channel.setName(`dead chat counter : ${count}`)
         }catch (e) {
             console.log(e)
