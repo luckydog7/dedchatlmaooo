@@ -14,9 +14,13 @@ client.on("message", function(message) {
         count++;
         try
         {
-            const guild = message.channel.guild
-            const channel = guild.channels.cache.find(channel => channel.id === "880531406185455706")
-            channel.setName(`"dead chat" counter : ${count}`)
+            const voiceChannel = message.guild.channels.resolve("880531406185455706");
+
+            if (voiceChannel)
+                voiceChannel.setName(`"dead chat" counter : ${count}`);
+            else
+                console.log("a");
+
         }catch (e) {
             console.log(e)
         }
