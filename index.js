@@ -4,27 +4,24 @@ const client = new Client({ intents: [Intents.FLAGS.GUILDS, Intents.FLAGS.GUILD_
 
 client.login(process.env.TOKEN);
 
-count = 0;
 
-client.on("message", function(message) {
+count = process.env.STARTCOUNT == null ? 0 : Number(process.env.STARTCOUNT);
+
+client.on("messageCreate", function(message) {
     if (message.author.bot) return;
     let text = message.content.toLowerCase();
     if (text.includes('dead') && text.includes('chat'))
     {
         count++;
-        try
-        {
-            const voiceChannel = message.guild.channels.resolve("880531406185455706");
+        const voiceChannel = message.guild.channels.resolve("880531406185455706");
+        //console.log(voiceChannel)
 
-            if (voiceChannel)
-                voiceChannel.setName(`"dead chat" counter : ${count}`);
-            else
-                console.log("a");
+        if (!voiceChannel) return console.log("sad");
 
-        }catch (e) {
-            console.log(e)
-        }
+        voiceChannel.setName(`"dead chat" highscore : ${count}`)
+            .catch(console.error);
 
         //message.reply(`test lol ${count}`);
+
     }
 });
